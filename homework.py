@@ -30,7 +30,7 @@ class Training:
     SEC_IN_MIN = 60
 
     def __init__(self,
-                 action: int,
+                 action: float,
                  duration: float,
                  weight: float,
                  ) -> None:
@@ -66,7 +66,7 @@ class Running(Training):
     CALORIES_MEAN_SPEED_SHIFT = 1.79
 
     def __init__(self,
-                 action: int,
+                 action: float,
                  duration: float,
                  weight: float) -> None:
         super().__init__(action, duration, weight)
@@ -125,11 +125,11 @@ class Swimming(Training):
     CALORIES_WEIGHT_MULTIPLIER = 2
 
     def __init__(self,
-                 action: int,
+                 action: float,
                  duration: float,
                  weight: float,
                  length_pool: float,
-                 count_pool: int) -> None:
+                 count_pool: float) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
