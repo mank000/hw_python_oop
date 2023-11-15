@@ -7,18 +7,23 @@ class InfoMessage:
     """Информационное сообщение о тренировке."""
 
     training_type: str
-    duration: str
+    duration: float
     distance: float
     speed: float
     calories: float
+    OUT_TEXT = ('Тип тренировки: {}; Длительность: '
+                '{:.3f} ч.; '
+                'Дистанция: {:.3f} км; '
+                'Ср. скорость: {:.3f} км/ч; '
+                'Потрачено ккал: {:.3f}.')
 
     def get_message(self) -> str:
         """Вывод сообщения о тренировке."""
-        return (f'Тип тренировки: {self.training_type}; Длительность: '
-                f'{self.duration:.3f} ч.; '
-                f'Дистанция: {self.distance:.3f} км; '
-                f'Ср. скорость: {self.speed:.3f} км/ч; '
-                f'Потрачено ккал: {self.calories:.3f}.')
+        return self.OUT_TEXT.format(self.training_type,
+                                    self.duration,
+                                    self.distance,
+                                    self.speed,
+                                    self.calories)
 
 
 class Training:
@@ -48,7 +53,8 @@ class Training:
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         raise NotImplementedError('Переопределить в дочерных '
-                                  'классах этот метод!')
+                                  'классах этот метод. Класс - '
+                                  f'{self.__class__.__name__}')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -132,8 +138,7 @@ def read_package(workout_type: str, data: list) -> Training:
                                            'WLK': SportsWalking}
     if workout_type in workouts:
         return workouts[workout_type](*data)
-    else:
-        raise ValueError("Неправильный тип тренировки!")
+    raise ValueError('Неправильный тип тренировки!')
 
 
 def main(training: Training) -> None:
